@@ -19,9 +19,9 @@ app.use("/api/auth",authRoutes);
 app.use("/api/messages",messageRoutes);
 app.use("/api/users",userRoutes);
 
-app.get("/",(req,res)=>{
-    res.send("<h1>Hello World!</h1>")
-});
+// app.get("/",(req,res)=>{
+//     res.send("<h1>Hello World!</h1>")
+// });
 
 app.listen(PORT,()=>{
     connectToMongoDb()
