@@ -6,10 +6,11 @@ import cookieParser from 'cookie-parser';
 import userRoutes from "./routes/user.routes.js"
 
 import connectToMongoDb from './db/connectToMongodb.js';
-
+import { app } from './socket/socket.js';
+import { server } from './socket/socket.js';
 
 const PORT=process.env.PORT||8080
-const app=express();
+
 dotenv.config();
 app.use(express.json());//parse incoming requests with json payloads and return any results as JSON
 app.use(cookieParser());
@@ -23,7 +24,7 @@ app.use("/api/users",userRoutes);
 //     res.send("<h1>Hello World!</h1>")
 // });
 
-app.listen(PORT,()=>{
+server.listen(PORT,()=>{
     connectToMongoDb()
     console.log(`Server is running on port ${PORT}`)
 });
