@@ -13,16 +13,25 @@ export const SocketContextProvider = ({ children }) => {
 	const [onlineUsers, setOnlineUsers] = useState([]);
 	const { authUser } = useAuthContext();
 	useEffect(() => {
-		console.log(authUser)
+	
 		if (authUser) {
-			const socket = io("https://localhost:8080", {
+			const socket = io("https://localhost:", {
 				query: {
 					userId: authUser._id,
 				},
 			});
-
+			console.log(socket)
 			setSocket(socket);
-
+			socket.on("connect_error", (err) => {
+				// the reason of the error, for example "xhr poll error"
+				console.log(err.message);
+			  
+				// some additional description, for example the status code of the initial HTTP response
+				console.log(err.description);
+			  
+				// some additional context, for example the XMLHttpRequest object
+				console.log(err.context);
+			  });
 			// socket.on() is used to listen to the events. can be used both on client and server side
 			socket.on("getOnlineUsers", (users) => {
 				setOnlineUsers(users);
